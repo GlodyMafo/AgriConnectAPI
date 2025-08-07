@@ -1,0 +1,35 @@
+{
+  "name": "agriconnectapi",
+  "version": "1.0.0",
+  "description": "��#\u0000 \u0000A\u0000g\u0000r\u0000i\u0000C\u0000o\u0000n\u0000n\u0000e\u0000c\u0000t\u0000A\u0000P\u0000I\u0000\r\u0000 \u0000",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server",
+     "swagger": "node ./swagger.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GlodyMafo/AgriConnectAPI.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/GlodyMafo/AgriConnectAPI/issues"
+  },
+  "homepage": "https://github.com/GlodyMafo/AgriConnectAPI#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.1",
+    "express": "^5.1.0",
+    "express-session": "^1.18.2",
+    "express-validator": "^7.2.1",
+    "mongodb": "^6.18.0",
+    "nodemon": "^3.1.10",
+    "passport": "^0.7.0",
+    "passport-github2": "^0.1.12",
+    "swagger-autogen": "^2.23.7",
+    "swagger-ui-express": "^5.0.1"
+  }
+}

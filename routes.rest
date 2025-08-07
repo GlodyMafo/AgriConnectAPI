@@ -1,0 +1,95 @@
+### Get all products
+GET http://localhost:8080/products
+
+###
+
+### Get products by ID
+GET http://localhost:8080/products/6893b1d5f2106c61e8e6949e
+###
+
+### Create product
+POST http://localhost:8080/products HTTP/1.1
+Content-Type: application/json
+
+{
+  "name": "Maize",
+  "description": "White premium.",
+  "quantity": 200,
+  "price": 45,
+  "category": "Céréales",
+  "location":"Lubumbashi",
+  "availableFrom": "2025-08-10"
+}
+
+###
+
+### Update product
+PUT http://localhost:8080/products/6894dc7b6a6ebf2a4f4cb6d0 HTTP/1.1
+Content-Type: application/json
+
+{
+      "name": "Maize",
+    "description": "White premium.",
+    "quantity": 200,
+    "price": 45,
+    "category": "Céréales",
+    "location": "Kinshasa",
+    "availableFrom": "2025-08-10T00:00:00.000Z",
+    "farmerId": null
+}
+
+###
+
+### Delete product
+DELETE http://localhost:8080/products/6894dc7b6a6ebf2a4f4cb6d0 HTTP/1.1\
+
+
+
+### Get all users
+GET http://localhost:8080/users
+
+###
+
+### Get users by ID
+GET http://localhost:8080/users/6893b15ef2106c61e8e6949d
+
+###
+
+### Create User
+POST http://localhost:8080/users HTTP/1.1
+Content-Type: application/json
+
+{
+  "firstName": "Ernesto",
+  "lastName": "Kisanga",
+  "email": "kis@gmail.com",
+  "password": "000000",
+  "phone": "+243900000000",
+   "role": "farmer",
+    "location": "Kinshasa"
+}
+
+###
+
+### Update User
+PUT http://localhost:8080/users/6893b05af2106c61e8e6949c HTTP/1.1
+Content-Type: application/json
+
+{
+   "firstName": "Beston",
+  "lastName": "Kisanga",
+  "email": "kis@gmail.com",
+  "password": "000000",
+  "phone": "+243900000000",
+   "role": "farmer",
+    "location": "Kinshasa"
+}
+
+###
+
+### Delete User
+DELETE http://localhost:8080/users/6893b05af2106c61e8e6949c HTTP/1.1
+
+
+
+
