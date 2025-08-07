@@ -5,7 +5,7 @@ const doc = {
     title: 'Events API',
     description: 'Project2'
   },
-  host: 'cse341-project2-17mp.onrender.com',
+  host: 'agriconnectapi.onrender.com',
   schemes:['https']
 };
 
