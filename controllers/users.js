@@ -1,10 +1,12 @@
-const mongodb = require('../data/database.js');
+const mongodb = require('../config/database.js');
 const ObjectId = require('mongodb').ObjectId;
 const { validationResult } = require('express-validator');
 
+const User = require ('../models/users.js')
+
 const getAll = async (req, res) => {
     try {
-        const result = await mongodb.getDatabase().db().collection('users').find();
+        const result = await mongodb.getDatabase().collection('users').find();
         const users = await result.toArray();
         res.setHeader('content-type', 'application/json');
         res.status(200).json(users);
@@ -31,26 +33,10 @@ const getSingle = async (req, res) => {
 };
 
 const createUser = async (req, res) => {
-    // Vérification des erreurs express-validator
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-        return res.status(400).json({ errors: errors.array() });
-    }
 
     try {
-        const user = {
-            firstName: req.body.firstName,
-            lastName: req.body.lastName,
-            email: req.body.email,
-            phone: req.body.phone,
-            role: req.body.role,
-            location: req.body.location,
-            password: req.body.password,
-            createdAt: new Date()
-        };
-
-        const response = await mongodb.getDatabase().db().collection('users').insertOne(user);
-
+        let user = new User(req.body.firstName, req.body.lastName, req.body.email, req.body.phone, req.body.role, req.body.location, req.body.password);
+        const response = await  mongodb.getDatabase().collection('users').insertOne(user);
         if (response.acknowledged) {
             res.status(201).json({ message: 'User created successfully', userId: response.insertedId });
         } else {
@@ -70,18 +56,9 @@ const updateUser = async (req, res) => {
 
     try {
         const userId = new ObjectId(req.params.id);
-        const user = {
-            firstName: req.body.firstName,
-            lastName: req.body.lastName,
-            email: req.body.email,
-            phone: req.body.phone,
-            role: req.body.role,
-            location: req.body.location,
-            password: req.body.password,
-            updatedAt: new Date()
-        };
+        let user = new User(req.body.firstName, req.body.lastName, req.body.email, req.body.phone, req.body.role, req.body.location, req.body.password, new Date().updatedAt);
 
-        const response = await mongodb.getDatabase().db().collection('users').replaceOne({ _id: userId }, user);
+        const response = await mongodb.getDatabase().collection('users').replaceOne({ _id: userId }, user);
 
         if (response.modifiedCount > 0) {
             res.status(204).send();
@@ -97,7 +74,7 @@ const updateUser = async (req, res) => {
 const deleteUser = async (req, res) => {
     try {
         const userId = new ObjectId(req.params.id);
-        const response = await mongodb.getDatabase().db().collection('users').deleteOne({ _id: userId });
+        const response = await mongodb.getDatabase().collection('users').deleteOne({ _id: userId });
 
         if (response.deletedCount > 0) {
             res.status(204).send();

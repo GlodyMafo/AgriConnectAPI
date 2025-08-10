@@ -1,9 +1,10 @@
-const mongodb = require('../data/database.js');
+const mongodb = require('../config/database.js');
+const Product = require('../models/products.js');
 const ObjectId = require('mongodb').ObjectId;
 
 const getAll = async (req, res) => {
   try {
-    const result = await mongodb.getDatabase().db().collection('products').find();
+    const result = await mongodb.getDatabase().collection('products').find();
     const products = await result.toArray();
     res.setHeader('content-type', 'application/json');
     res.status(200).json(products);
@@ -15,15 +16,15 @@ const getAll = async (req, res) => {
 const getSingle = async (req, res) => {
   try {
     const productId= new ObjectId(req.params.id);
-    const result = await mongodb.getDatabase().db().collection('products').find({ _id: productId});
+    const result = await mongodb.getDatabase().collection('products').find({ _id: productId});
     const products = await result.toArray();
     if (!products[0]) {
-      return res.status(404).json({ message: 'Event not found' });
+      return res.status(404).json({ message: 'product not found' });
     }
     res.setHeader('content-type', 'application/json');
     res.status(200).json(products[0]);
   } catch (error) {
-    res.status(500).json({ message: 'Failed to fetch event', error: error.message });
+    res.status(500).json({ message: 'Failed to fetch product', error: error.message });
   }
 };
 
@@ -31,19 +32,19 @@ const getSingle = async (req, res) => {
 
 const createProduct = async (req, res) => {
   try {
-     const product = {
-      name: req.body.name,
-      description: req.body.description,
-      quantity: parseInt(req.body.quantity),
-      price: parseFloat(req.body.price),
-      category: req.body.category,
-      location:req.body.location,
-      availableFrom: new Date(req.body.availableFrom),
-      farmerId: req.body.id, 
-      createdAt: new Date()
-    };
 
-    const response = await mongodb.getDatabase().db().collection('products').insertOne(product);
+      const product = new Product(
+      req.body.name,
+      req.body.description,
+      req.body.quantity,
+      req.body.price,
+      req.body.category,
+      req.body.location,
+      req.body.availableFrom,
+      // req.user._id 
+    );
+
+    const response = await mongodb.getDatabase().collection('products').insertOne(product);
 
     if (response.acknowledged) {
       res.status(201).json({ message: 'product created successfully', productId: response.insertedId });
@@ -63,43 +64,41 @@ const updateProduct = async (req, res) => {
   try {
     const productId= new ObjectId(req.params.id);
 
-    const event = {
-       name: req.body.name,
-      description: req.body.description,
-      quantity: parseInt(req.body.quantity),
-      price: parseFloat(req.body.price),
-      category: req.body.category,
-      location:req.body.location,
-      availableFrom: new Date(req.body.availableFrom),
-      farmerId: req.body.id, 
-      createdAt: new Date(),
-      updatedAt: new Date()
-    };
+     const product = new Product(
+      req.body.name,
+      req.body.description,
+      req.body.quantity,
+      req.body.price,
+      req.body.category,
+      req.body.location,
+      req.body.availableFrom,
+      // req.user._id 
+    );
 
-    const response = await mongodb.getDatabase().db().collection('products').replaceOne({ _id: productId}, event);
+    const response = await mongodb.getDatabase().collection('products').replaceOne({ _id: productId}, product);
 
     if (response.modifiedCount > 0) {
       res.status(204).send();
     } else {
-      res.status(404).json({ message: 'Event not found or no changes applied' });
+      res.status(404).json({ message: 'product not found or no changes applied' });
     }
   } catch (error) {
-    res.status(500).json({ message: 'Failed to update event', error: error.message });
+    res.status(500).json({ message: 'Failed to update product', error: error.message });
   }
 };
 
 const deleteProduct = async (req, res) => {
   try {
     const productId= new ObjectId(req.params.id);
-    const response = await mongodb.getDatabase().db().collection('products').deleteOne({ _id: productId});
+    const response = await mongodb.getDatabase().collection('products').deleteOne({ _id: productId});
 
     if (response.deletedCount > 0) {
       res.status(204).send();
     } else {
-      res.status(404).json({ message: 'Event not found' });
+      res.status(404).json({ message: 'product not found' });
     }
   } catch (error) {
-    res.status(500).json({ message: 'Failed to delete event', error: error.message });
+    res.status(500).json({ message: 'Failed to delete product', error: error.message });
   }
 };
 

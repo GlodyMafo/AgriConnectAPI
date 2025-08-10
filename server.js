@@ -1,18 +1,19 @@
 const express = require('express');
-const mongodb = require('./data/database');
+const mongodb = require('./config/database');
 const bodyParser = require('body-parser');
 // const passport = require('passport');
 // const session = require('express-session');
 // const GitHubStrategy = require('passport-github2').Strategy;
-// const cors = require('cors');
+const cors = require('cors');
 const dotenv = require('dotenv');
 dotenv.config();
 
 const app = express();
 const PORT = 8080;
 
+//MiddleWare
 app.use(bodyParser.json());
-// app.use(cors());
+app.use(cors());
 
 // //Session
 // app.use(session({
@@ -43,7 +44,6 @@ app.use(bodyParser.json());
 // passport.deserializeUser((user, done) => {
 //   done(null, user);
 // });
-
 
 
 app.use('/', require('./routes'));
