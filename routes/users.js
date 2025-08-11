@@ -1,7 +1,7 @@
 const express = require('express');
 const { body, param } = require('express-validator');
 const usersController = require('../controllers/users.js');
-// const {protect} = require ('../middleware/authenticate.js')
+const {isAuthenticated} = require ('../middleware/authenticate.js')
 
 const router = express.Router();
 
@@ -22,13 +22,13 @@ const idValidationRule = [
 router.get('/', usersController.getAll);
 router.get('/:id', idValidationRule, usersController.getSingle);
 router.post('/', 
-    // isAuthenticated , 
+    isAuthenticated , 
     userValidationRules, usersController.createUser);
 router.put('/:id',
-    // isAuthenticated,
+    isAuthenticated,
      [...idValidationRule, ...userValidationRules], usersController.updateUser);
 router.delete('/:id',
-    // isAuthenticated,
+    isAuthenticated,
      idValidationRule, usersController.deleteUser);
 
 module.exports = router;

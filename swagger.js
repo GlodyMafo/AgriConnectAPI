@@ -5,8 +5,8 @@ const doc = {
     title: 'Events API',
     description: 'Project2'
   },
-  host: 'agriconnectapi.onrender.com',
-  schemes:['https']
+  host: 'localhost:8080',
+  schemes:['http']
 };
 
 const outputFile = './swagger.json';

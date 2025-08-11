@@ -92,4 +92,19 @@ DELETE http://localhost:8080/users/6893b15ef2106c61e8e6949d HTTP/1.1
 
 
 
+### Get all products
+GET http://localhost:8080/orders
+
+
+### Create orders
+POST http://localhost:8080/orders HTTP/1.1
+Content-Type: application/json
+
+{
+  "items": [
+    { "productId": "6898b791173c26b6594ed869", "quantity": 2 }
+  
+  ]
+}
+
 

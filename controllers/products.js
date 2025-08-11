@@ -16,8 +16,8 @@ const getAll = async (req, res) => {
 
 const getSingle = async (req, res) => {
   try {
-    const productId= new ObjectId(req.params.id);
-    const result = await mongodb.getDatabase().collection('products').find({ _id: productId});
+    const productId = new ObjectId(req.params.id);
+    const result = await mongodb.getDatabase().collection('products').find({ _id: productId });
     const products = await result.toArray();
     if (!products[0]) {
       return res.status(404).json({ message: 'product not found' });
@@ -34,7 +34,12 @@ const getSingle = async (req, res) => {
 const createProduct = async (req, res) => {
   try {
 
-      const product = new Product(
+    const farmer = req.user._id;
+
+    const farmerId = new ObjectId(farmer);
+
+
+    const product = new Product(
       req.body.name,
       req.body.description,
       req.body.quantity,
@@ -42,7 +47,7 @@ const createProduct = async (req, res) => {
       req.body.category,
       req.body.location,
       req.body.availableFrom,
-      // req.user._id 
+      farmerId
     );
 
     const response = await mongodb.getDatabase().collection('products').insertOne(product);
@@ -60,9 +65,9 @@ const createProduct = async (req, res) => {
 
 const updateProduct = async (req, res) => {
   try {
-    const productId= new ObjectId(req.params.id);
+    const productId = new ObjectId(req.params.id);
 
-     const product = new Product(
+    const product = new Product(
       req.body.name,
       req.body.description,
       req.body.quantity,
@@ -73,7 +78,7 @@ const updateProduct = async (req, res) => {
       // req.user._id 
     );
 
-    const response = await mongodb.getDatabase().collection('products').replaceOne({ _id: productId}, product);
+    const response = await mongodb.getDatabase().collection('products').replaceOne({ _id: productId }, product);
 
     if (response.modifiedCount > 0) {
       res.status(204).send();
@@ -87,8 +92,8 @@ const updateProduct = async (req, res) => {
 
 const deleteProduct = async (req, res) => {
   try {
-    const productId= new ObjectId(req.params.id);
-    const response = await mongodb.getDatabase().collection('products').deleteOne({ _id: productId});
+    const productId = new ObjectId(req.params.id);
+    const response = await mongodb.getDatabase().collection('products').deleteOne({ _id: productId });
 
     if (response.deletedCount > 0) {
       res.status(204).send();
