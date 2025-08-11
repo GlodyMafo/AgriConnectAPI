@@ -29,7 +29,7 @@ Content-Type: application/json
 
 {
       "name": "Maize",
-    "description": "White premium.",
+    "description": "White premim.",
     "quantity": 200,
     "price": 45,
     "category": "Céréales",

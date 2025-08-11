@@ -13,6 +13,7 @@ const getAll = async (req, res) => {
   }
 };
 
+
 const getSingle = async (req, res) => {
   try {
     const productId= new ObjectId(req.params.id);
@@ -55,9 +56,6 @@ const createProduct = async (req, res) => {
     res.status(500).json({ message: 'Failed to create product', error: error.message });
   }
 };
-
-
-
 
 
 const updateProduct = async (req, res) => {

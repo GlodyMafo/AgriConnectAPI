@@ -2,7 +2,7 @@ const express = require('express');
 const { check, validationResult } = require('express-validator');
 const router = express.Router();
 const productsController = require('../controllers/products.js');
-// const {isAuthenticated} = require ('../middleware/authenticate.js')
+const {isAuthenticated} = require ('../middleware/authenticate.js')
 
 // Validation error Middleware
 const validate = (req, res, next) => {
@@ -22,7 +22,7 @@ router.get('/:id', productsController.getSingle);
 // POST 
 router.post(
   '/',
-  //   isAuthenticated,
+    isAuthenticated,
   [
     check('name').notEmpty().withMessage('Title is required'),
     check('description').notEmpty().withMessage('Description is required'),
@@ -39,7 +39,7 @@ router.post(
 // PUT 
 router.put(
   '/:id',
-  //    isAuthenticated,
+     isAuthenticated,
   [
     check('title').optional().notEmpty().withMessage('Title cannot be empty'),
     check('description').optional().notEmpty().withMessage('Description cannot be empty'),
@@ -55,7 +55,7 @@ router.put(
 
 // DELETE 
 router.delete('/:id',
-  // isAuthenticated, 
+  isAuthenticated, 
   productsController.deleteProduct);
 
 module.exports = router;
