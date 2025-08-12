@@ -5,7 +5,7 @@
     "description": "Project2",
     "version": "1.0.0"
   },
-  "host": "localhost:8080",
+  "host": "agriconnectapi.onrender.com",
   "basePath": "/",
   "schemes": [
     "http"
@@ -450,9 +450,6 @@
           "201": {
             "description": "Created"
           },
-          "400": {
-            "description": "Bad Request"
-          },
           "401": {
             "description": "Unauthorized"
           },
@@ -510,9 +507,6 @@
         "responses": {
           "200": {
             "description": "OK"
-          },
-          "400": {
-            "description": "Bad Request"
           },
           "401": {
             "description": "Unauthorized"

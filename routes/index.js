@@ -11,7 +11,7 @@ router.use('/',require('./swagger'))
 
 router.get('/', (req, res) => {
 
-  res.send(req.isAuthenticated() ? `logged in as ${req.user.displayName}` : 'logged out');
+  res.send(req.isAuthenticated() ? `logged in as ${req.user.displayName}` : '<a href="/login">Click to connect with google</a>');
 });
 
 router.get('/auth/google', passport.authenticate('google',  { scope: ['profile', 'email'] }));
