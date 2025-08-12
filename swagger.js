@@ -6,7 +6,7 @@ const doc = {
     description: 'Project2'
   },
   host: 'agriconnectapi.onrender.com',
-  schemes:['http']
+  schemes:['https']
 };
 
 const outputFile = './swagger.json';

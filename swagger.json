@@ -8,7 +8,7 @@
   "host": "agriconnectapi.onrender.com",
   "basePath": "/",
   "schemes": [
-    "http"
+    "https"
   ],
   "paths": {
     "/": {
