@@ -6,14 +6,14 @@ const createOrder = async (req, res) => {
     const { items } = req.body; // [{ productId, quantity }]
     const buyerId = req.user._id;
 
-    // Récupération des produits
+   //i'm geeting products
     const productIds = items.map(i => new ObjectId(i.productId));
     const products = await mongodb.getDatabase()
       .collection('products')
       .find({ _id: { $in: productIds } })
       .toArray();
 
-    // Calcul du prix total
+    // Calculation of the total
     let totalPrice = 0;
     const orderItems = items.map(item => {
       const product = products.find(p => p._id.toString() === item.productId);
