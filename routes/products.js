@@ -13,13 +13,12 @@ const validate = (req, res, next) => {
   next();
 };
 
-// GET all 
+
 router.get('/', productsController.getAll);
 
-// GET single 
+
 router.get('/:id', productsController.getSingle);
 
-// POST 
 router.post(
   '/',
     isAuthenticated,
